@@ -1,0 +1,36 @@
+﻿
+
+@{
+    ViewBag.Title = "Home Page";
+    }
+
+<script src="~/lib/angular/angular.min.js"></script>
+<script src="~/lib/angular-route/angular-route.min.js"></script>
+<script src="~/js/app-sales.js"></script>
+<script src="~/js/salesController.js"></script>
+<script src="~/js/addXls.js"></script>
+<script src="~/js/addDataController.js"></script>
+<script src="~/js/treeView.js"></script>
+<script src="~/js/modalSelectView.js"></script>
+
+<div class="main" ng-app="app-sales">
+    <div id="mainMenu" class="container-fluid">
+        <nav class="navbar navbar-default" style="margin-bottom: 0">
+           
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#/sales"> Управление ассортиментом</a>
+                    </li>
+                    <li>
+                        <a href="#/addData"> Загрузка данных</a>
+                    </li>
+                </ul>
+           
+        </nav>
+    </div>
+
+   
+        <div id="view" ng-view></div>
+   
+</div>     
+

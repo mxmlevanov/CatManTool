@@ -1,0 +1,78 @@
+﻿
+
+<script src="~/js/addDataController.js"></script>
+<script src="~/js/addXls.js"></script>
+
+
+<div id="addData" ng-controller="addDataController as ad">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li style="margin-left: 20px;">
+                    <a style="margin: 0">Выберите тип данных</a>
+                </li>
+                <li ng-repeat="but in ad.dataTypes">
+                    <a ng-click="ad.getMode(but.dataType)"> {{but.label}}</a>
+                   
+                </li>
+                <li>
+                    <label class="btn btn-primary btn-sm" for="my-file-selector" style="margin-top: 7px">
+                        <input type="file" id="my-file-selector" show-xls="onFileSelect($files)" style="display: none">
+                        Загрузить файл
+                    </label>
+                   
+                </li>
+                <li>
+                    <a ng-click="ad.addDataToDb()"> Сохранить данные</a>
+                </li>
+                <li>
+                    <a ng-click="ad.removeDataFromDb()"> Удалить данные</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li style="margin-right: 20px">
+                    <a style="margin: 0" href="#/"> Выход </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div ng-switch on="ad.data.mode">
+        <div ng-switch-when="stores">
+            <p>Test1</p>
+        </div>
+        <div ng-switch-when="products">
+            <p>Test2</p>
+        </div>
+    </div>
+
+   
+    <span ng-bind="ad.names[0].label"></span>
+   
+    <div>
+       
+        <table class="table table-striped table-responsive">
+            <tr>
+                <td ng-repeat="(indZ,col) in ad.colNames track by indZ">
+                    <div class="dropdown">
+                        <button class="btn btn-sm  dropdown-toggle" style="width: 100%" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span ng-bind="ad.data.selectedItems[indZ].label"></span>
+                            <span class="caret"> </span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+                            <li ng-repeat="a in ad.names">
+                                <a ng-click="ad.getSelectedItem(a,indZ,col)">{{a.label}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <p style="width: 100%">{{ad.addColName(col,indZ)}}</p>
+                </td>
+            </tr>
+            <tr ng-repeat="item in ad.xlsdata">
+                <td ng-repeat="(k,v) in item">{{v}}</td>
+            </tr>
+        </table>
+
+
+    </div>
+</div>
+

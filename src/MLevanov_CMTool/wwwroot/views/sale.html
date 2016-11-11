@@ -1,0 +1,76 @@
+﻿
+
+
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+
+<div ng-controller="salesController as vm" class="row" >
+    <loading show="vm.loading"></loading>
+    <nav class="navbar navbar-inverse" style="margin-top: 0">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li ng-show="vm.showSideMenu" style="margin-left: 20px;">
+                    <a style="margin: 0">Выберите товар или группу товаров</a>
+                </li>
+                <li >
+                    <a ng-click="vm.showSideMenu=!vm.showSideMenu" style="margin-left: 10px;"> <i id="sideButton" ng-class="vm.showSideMenu? 'fa fa-angle-left':'fa fa-angle-right'" ></i></a>
+                </li>
+                <li class="dropdown" ng-show="vm.selectedGoods.length>0">
+                    <a class="dropdown-toggle" data-toggle="dropdown" > Укажите класс для выбранных товаров <span class="caret"></span></a>
+                    <ul class="dropdown-menu" style="width: 100%; background-color: white">
+                        <li class="label-default" ng-click="vm.setGoodsClass(class)" style="margin-bottom: 4px" ng-repeat="class in vm.goodsClasses"> {{class}}</li>
+                        <li class="label-default">Или введите название для нового класса</li>
+                        <li>
+                            <form ng-submit="vm.setGoodsClass(vm.newGoodsClass)" class="label-default" style="width: 100%; padding-left: 0">
+                                <input ng-blur="vm.setGoodsClass(vm.newGoodsClass)" ng-model="vm.newGoodsClass" class="label-default" type="text" 
+                                       style="width: 100%;  height: 30px; border: 2px solid #c0c0c0  "  autofocus/>
+                            </form>
+                        </li>
+                    </ul>
+
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li style="margin-right: 40px">
+                    <a style="margin: 0" href="#/"> Выход </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="sideMenu" class="col-md-2" ng-show="vm.showSideMenu" ng-if="vm.catLoaded">
+
+        <tree parentname="vm.parentname"
+              source="vm.categories"
+              hierarchy="vm.hierarchy"
+              levelname="vm.hierarchy[0]"
+              showtotal="vm.showCategoryData(info,show,parent)"           
+              cattoshow="vm.catToShow"
+              showgoods="vm.showCategoryGoodsData(elem,set)">
+        </tree>
+
+    </div>
+  
+    <div class="col-md-10">
+        <table class="table table-striped table-responsive" id="salestable">
+            <tr>
+            <th> Товар</th>
+            <th> Класс товара </th>
+            <th colspan="8"> Продажи</th>
+            <tr ng-repeat="(indX,good) in vm.goods track by indX" ng-mousedown="vm.startSelect($event,indX)" 
+                ng-mouseup="vm.endSelect($event,indX)"
+                 ng-mouseover="vm.rowSelection($event,indX)">
+                <td width="20%" >
+                    <span  width="20px" ng-class="good.isSelected? 'fa fa-check-square-o':'fa fa-square-o'"></span>
+                    <span> {{good.name}}></span>
+                </td>
+                <td width="10%" >{{good.goodsClass.className}}</td>
+                <td ng-repeat="(indY,sp) in good.goodSales track by indY"> {{sp.salespcs}} </td>              
+            </tr>
+        </table>
+    </div>
+</div>
+
+    
+

@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B7CE3FB5-003E-47E8-A6CF-A8A9537DF92D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B3E7220F-F36D-428E-947E-033C4F1A6F70}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MLevanov_CMTool", "src\MLevanov_CMTool\MLevanov_CMTool.xproj", "{F5EFC497-3926-47EC-8697-04792A09522E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5EFC497-3926-47EC-8697-04792A09522E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5EFC497-3926-47EC-8697-04792A09522E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5EFC497-3926-47EC-8697-04792A09522E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5EFC497-3926-47EC-8697-04792A09522E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F5EFC497-3926-47EC-8697-04792A09522E} = {B7CE3FB5-003E-47E8-A6CF-A8A9537DF92D}
+	EndGlobalSection
+EndGlobal

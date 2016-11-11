@@ -1,0 +1,80 @@
+﻿
+#footer {
+    background-color: #0000ff;
+    color: #eee;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+#mainMenu {
+    
+    width: 100%;  
+}
+#addData {
+    width: 100%;
+}
+.menu li, a {
+    color: #000000;
+        
+}
+#view {
+  
+    width: 100%;
+}
+.fa-angle-down {
+  position: absolute; 
+  right: 20px  
+}
+.container-fluid {
+    margin: 0;
+    padding: 0;
+}
+.label-default {
+    height: 30px;
+    padding-left: 20px;
+    line-height: 30px
+
+}
+   
+
+.noPadding tr {
+     padding: 0 !important;
+     margin: 0 !important;
+    
+}
+
+.noPadding td {
+    padding: 0 !important;
+    margin: 0 !important;
+   
+}
+
+.noPadding input {
+    width: 100%;
+    outline: none;
+
+}
+/*#sidebar p {
+    margin-left: 40px;
+}*/
+
+/*#sidebar {
+   background: #c0c0c0;
+    position: fixed;
+    height: 100%;
+    width: 250px;
+    overflow: hidden;
+    left: 0;
+    margin: 0;
+}
+#sidebar.hide-sidebar {
+    left: -250px;
+}
+#wrapper {
+    margin-left: 250px;
+}
+
+#wrapper.hide-sidebar {
+    margin-left: 0;
+}*/
+
