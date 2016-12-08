@@ -10,7 +10,6 @@ namespace MLevanov_CMTool.Models
         public int SaleId { get; set; }
         public string Week { get; set; }
         public int MinStock { get; set; }
-        public int StartStock { get; set; }
         public string ProductCode { get; set; }
         public int Salespcs { get; set; }
         public int Forecast { get; set; }
@@ -49,7 +48,6 @@ namespace MLevanov_CMTool.Models
         public int ShelveId { get; set; }
         public Store ShelveStore { get; set; }
         public GoodsClass ShelveGoodsClass { get; set; }
-        public float ShelvesRate { get; set; }
         public int SectionsNumber { get; set; }
         public int ShelvesNumber { get; set; }
         public int ShelvesWidth { get; set; }
@@ -61,7 +59,6 @@ namespace MLevanov_CMTool.Models
         public string StoreCode { get; set; }
         public string StoreName { get; set; }
         public float TotalLength { get; set; }
-        public float StoreRate { get; set; }
         public ICollection<Shelve> StoreShelves { get; set; }
         public ICollection<Sale> StoreSales { get; set; }
     }

@@ -19,10 +19,8 @@ namespace MLevanov_CMTool.ViewModels
         public float SalesPrice { get; set; }
         public float PurchasingPrice { get; set; }
         public string StoreCode { get; set; }
-        public int Forecast { get; set; }
-        public int Range { get; set; }
-
-
+       
+      
 
     }
 }
