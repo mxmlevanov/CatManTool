@@ -8,6 +8,7 @@ namespace MLevanov_CMTool.Models
     public class Sale
     {
         public int SaleId { get; set; }
+        public float SpareVar { get; set; }
         public string Week { get; set; }
         public int MinStock { get; set; }
         public int StartStock { get; set; }
