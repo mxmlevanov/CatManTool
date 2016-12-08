@@ -1,25 +1,4 @@
 ﻿
-<ul class="nav nav-pills nav-stacked" style="margin-left: 20px; font-size: small">
-    <div ng-repeat="c in tr.cattoshow">
-        <li class="label-default" style="margin-bottom: 5px;" >
-            <span ng-show="!c.isChecked"><i class="fa fa-square-o" ng-click="tr.togtree({elem:c,set:false})"></i> {{ c.name}} </span>
-            <span ng-show="c.isChecked"><i class="fa fa-check-square-o" ng-click="tr.togtree({elem:c,set:true})"></i> {{ c.name }}</span>
-            <span ng-show="!c.isExpanded" style="margin-right: 10px; float: right"><i class="fa fa-angle-left" ng-click="tr.exptree({elem:c,set:false})"></i></span>
-            <span ng-show="c.isExpanded" style="margin-right: 10px; float: right"><i class="fa fa-angle-right" ng-click="tr.exptree({elem:c,set:true})"></i></span>            
-        </li>
-        <div ng-show="c.isExpanded">
-            <tree parentname="c.name"
-                  source="tr.source"
-                  hierarchy="tr.hierarchy"
-                  levelname="c.level"
-                  showtotal="tr.showtotal(info,show,parent)"
-                  exptree="tr.exptree(elem,set)"
-                  togtree="tr.togtree(elem,set)"
-                  showgoods="tr.showgoods(elem,set)"
-                 ></tree>
-        </div>
-    </div>
-       
-   
-</ul>
+
+ <node source ="tr.source" hierarchy="tr.hierarchy" name="initial" level="tr.hierarchy[0]"></node>
 
