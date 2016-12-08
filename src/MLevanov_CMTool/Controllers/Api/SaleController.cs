@@ -19,18 +19,26 @@ namespace MLevanov_CMTool.Controllers.Api
         }
  
         [HttpGet("api/sales")]
-        public JsonResult Get(string categoryName)
+        public JsonResult Get(string categoryLevel, string categoryName)
         {
-            IEnumerable<Good> goodList = _repository.GetGoodsWithWeeklySales(categoryName);        
+            IEnumerable<Good> goodList = _repository.GetGoodsWithWeeklySales(categoryLevel, categoryName);        
             var results = Mapper.Map<IEnumerable<GoodViewModel>>(goodList);
             var t = new JsonResult(results);
             return t;
         }
 
         [HttpGet("api/sales/total")]
-        public JsonResult GetTotal(string level, string[] categoryList)
+        public JsonResult GetTotal()
         {
-            IEnumerable<Good> goodList =  _repository.GetSalesTotal(level, categoryList);
+            Good totalGood = _repository.GetSalesTotal();
+            var results = Mapper.Map<GoodViewModel>(totalGood);
+            var t = new JsonResult(results);
+            return t;
+        }
+        [HttpGet("api/sales/totalbycategories")]
+        public JsonResult GetTotalByCategories (string level, string[] categoryList)
+        {
+            IEnumerable<Good> goodList =  _repository.GetSalesTotalByCategories(level, categoryList);
             var results = Mapper.Map<IEnumerable<GoodViewModel>>(goodList);
             var t = new JsonResult(results);
             return t;

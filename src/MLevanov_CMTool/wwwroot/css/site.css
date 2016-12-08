@@ -35,7 +35,10 @@
     line-height: 30px
 
 }
-   
+ .aggregated {
+     background-color: #e3ecee
+ }  
+ .notaggregated{}
 
 .noPadding tr {
      padding: 0 !important;

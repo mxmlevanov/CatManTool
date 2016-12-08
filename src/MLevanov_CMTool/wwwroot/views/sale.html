@@ -1,9 +1,6 @@
 ﻿
 
-
-
 <link rel="stylesheet" href="~/css/site.css" />
-
 
 <div ng-controller="salesController as vm" class="row" >
     <loading show="vm.loading"></loading>
@@ -41,33 +38,43 @@
 
     <div id="sideMenu" class="col-md-2" ng-show="vm.showSideMenu" ng-if="vm.catLoaded">
 
-        <tree parentname="vm.parentname"
-              source="vm.categories"
-              hierarchy="vm.hierarchy"
-              levelname="vm.hierarchy[0]"
+        <tree source="vm.categories"
+              hierarchy="vm.hierarchy"            
               showtotal="vm.showCategoryData(info,show,parent)"           
-              cattoshow="vm.catToShow"
               showgoods="vm.showCategoryGoodsData(elem,set)">
         </tree>
 
     </div>
-  
+
     <div class="col-md-10">
-        <table class="table table-striped table-responsive" id="salestable">
+        <table class="table table-responsive" id="salestable">
+            <thead>
             <tr>
-            <th> Товар</th>
-            <th> Класс товара </th>
-            <th colspan="8"> Продажи</th>
-            <tr ng-repeat="(indX,good) in vm.goods track by indX" ng-mousedown="vm.startSelect($event,indX)" 
-                ng-mouseup="vm.endSelect($event,indX)"
-                 ng-mouseover="vm.rowSelection($event,indX)">
-                <td width="20%" >
-                    <span  width="20px" ng-class="good.isSelected? 'fa fa-check-square-o':'fa fa-square-o'"></span>
-                    <span> {{good.name}}></span>
-                </td>
-                <td width="10%" >{{good.goodsClass.className}}</td>
-                <td ng-repeat="(indY,sp) in good.goodSales track by indY"> {{sp.salespcs}} </td>              
+                <th rowspan="2" style="vertical-align: middle"> Товар</th>
+                <th rowspan="2" style="vertical-align: middle"> Класс товара </th>
+                <th colspan="8" style="text-align: center"> Данные по неделям </th>
+                <th rowspan="2" style="vertical-align: middle"> Рейтинг в классе </th>
+                <th rowspan="2" style="vertical-align: middle"> Прогноз шт./нед.</th>
             </tr>
+            <tr>
+                <th class="col-md-offset-2" ng-repeat="w in vm.weeks"> {{w}} </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="(indX,good) in vm.goods track by indX" ng-class="good.code == 'aggregated' ? 'aggregated':''">
+                <td ng-mousedown="vm.startSelect($event,indX)"
+                    ng-mouseup="vm.endSelect($event,indX)"
+                    ng-mouseover="vm.rowSelection($event,indX)"
+                    width="20%">
+                    <span width="20px" ng-class="good.isSelected? 'fa fa-check-square-o':'fa fa-square-o'"></span>
+                    <span> {{good.name}} </span>
+                </td>
+                <td width="10%">{{good.goodsClass.className}} </td>
+                <td ng-repeat="(indY,sp) in good.goodSales track by indY"> {{sp.salespcs}}</td>
+                <td width="5%" contenteditable mark="rating" ng-model="vm.goods[indX].goodSales[good.goodSales.length -1].range"></td>
+                <td width="5%" contenteditable mark="forecast" ng-model="vm.goods[indX].goodSales[good.goodSales.length -1].forecast"></td>
+            </tr>
+            </tbody>
         </table>
     </div>
 </div>

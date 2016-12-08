@@ -13,15 +13,16 @@ namespace MLevanov_CMTool.Models
 {
     public interface ICmToolRepository
     {
-        IEnumerable<Good> GetGoodsWithWeeklySales(string catName);
+        IEnumerable<Good> GetGoodsWithWeeklySales(string level, string catName);
         void AddShelves (List<Shelve> data);
         void AddProducts (List<Good> data);
         void AddSales(List<Sale> data);
         void UpdateSaleById(int goodId,int saleId, int salePsc);
-        void SetGoodsClass(string className, List<string> goodCodes);
+        void SetGoodsClass(string className, List<string> goodCodes); 
         void ClearData();
         IEnumerable<GoodsClass> GetGoodsClasses();
-        IEnumerable<Good> GetSalesTotal(string level, string[] categoryName);
+        IEnumerable<Good> GetSalesTotalByCategories(string level, string[] categoryName);
+        Good GetSalesTotal();
     }
 
     public static class MyExt
@@ -76,9 +77,9 @@ namespace MLevanov_CMTool.Models
             _context = context;
         }
         
-        public IEnumerable<Good> GetGoodsWithWeeklySales(string catName)  
+        public IEnumerable<Good> GetGoodsWithWeeklySales(string level, string catName)  
         {
-            var ttGoodsClasses = _context.GoodsClasses.Include(t => t.Goods).ThenInclude(o => o.GoodSales).Where(s => s.Category==catName).ToList();
+            var ttGoodsClasses = _context.GoodsClasses.Include(t => t.Goods).ThenInclude(o => o.GoodSales).Where(s => s.GetPropValue(level) == catName).ToList();
             IEnumerable<Good> ttGoods = ttGoodsClasses.SelectMany(t => t.Goods).Where(t=>t.GoodSales.Count != 0).ToList();
             return ttGoods.Select(p => new Good()
             {
@@ -93,12 +94,29 @@ namespace MLevanov_CMTool.Models
             }).ToList();
         }
 
-        public IEnumerable<Good> GetSalesTotal(string level, string[] categoryList)
+        public Good GetSalesTotal()
+        {
+            IEnumerable<GoodsClass> tGoodsClasses =
+                _context.GoodsClasses.Include(t => t.Goods).ThenInclude(o => o.GoodSales);
+            IEnumerable<Good> tGoods = tGoodsClasses.SelectMany(t => t.Goods).Select(p => p).ToList();
+            ICollection<Sale> totalSales = tGoods.SelectMany(s => s.GoodSales).GroupBy(t => t.Week).Select(z => new Sale()
+            {
+                Salespcs = z.Sum(w => w.Salespcs),
+                Week = z.Key
+            }).ToList();
+
+            return new Good
+            {
+                Code = "total",
+                Name = "Итого по всем товарам",
+                GoodSales = totalSales
+            };
+        }
+        public IEnumerable<Good> GetSalesTotalByCategories (string level, string[] categoryList)
         {
             var result = new List<Good>();
             foreach (string cat in categoryList)
             {
-
                 IEnumerable<GoodsClass> tGoodsClasses = _context.GoodsClasses.Include(t => t.Goods).ThenInclude(o => o.GoodSales).
                     Where(s => s.GetPropValue(level) == cat).ToList();
                 IEnumerable<Good> tGoods = tGoodsClasses.SelectMany(t => t.Goods).Select(p => p).ToList();
@@ -111,7 +129,7 @@ namespace MLevanov_CMTool.Models
 
                 result.Add(new Good
                 {
-                    Code = "aggregated",
+                    Code = level,
                     Name = cat,
                     GoodSales = totalSalesByWeeks
                 });
